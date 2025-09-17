@@ -1,4 +1,3 @@
-// multi.js
 const peerConnection = new RTCPeerConnection({
     iceServers: [] // シグナリングサーバーを使用しないため空にする
 });

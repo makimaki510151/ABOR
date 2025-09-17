@@ -1,0 +1,22 @@
+{
+  "name": "abor-rpg",
+  "version": "1.0.0",
+  "description": "あつまってボス戦しようぜRPG-あボR-",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "live-server src",
+    "build": "echo 'Build process not defined yet.'"
+  },
+  "dependencies": {
+    "peerjs": "^1.5.2",
+    "qrcodejs": "^1.0.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "rpg",
+    "game",
+    "javascript"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

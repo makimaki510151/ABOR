@@ -1,4 +1,3 @@
-// db.js
 const dbName = 'abRpgDB';
 const storeName = 'playerData';
 let db;
