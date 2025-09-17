@@ -1,43 +1,40 @@
-const dbName = 'abRpgDB';
-const storeName = 'playerData';
-let db;
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-function openDB() {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open(dbName, 1);
-        request.onupgradeneeded = (event) => {
-            db = event.target.result;
-            db.createObjectStore(storeName, { keyPath: 'id' });
-        };
-        request.onsuccess = (event) => {
-            db = event.target.result;
-            resolve(db);
-        };
-        request.onerror = (event) => {
-            console.error('IndexedDB error:', event.target.error);
-            reject(event.target.error);
-        };
-    });
+const firebaseConfig = {
+  apiKey: "AIzaSyB4MOqEhnWBD5gGN5oyXNAGP6x79pAmnuQ",
+  authDomain: "abor-3bcd8.firebaseapp.com",
+  projectId: "abor-3bcd8",
+  storageBucket: "abor-3bcd8.firebasestorage.app",
+  messagingSenderId: "893294603339",
+  appId: "1:893294603339:web:f3c970b62dd1cd4ff031ce",
+  measurementId: "G-ZXMHT0E201"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// 新規登録
+export async function register(email, password) {
+  return await createUserWithEmailAndPassword(auth, email, password);
 }
 
-function savePlayerData(data) {
-    const transaction = db.transaction([storeName], 'readwrite');
-    const store = transaction.objectStore(storeName);
-    return new Promise((resolve, reject) => {
-        const request = store.put(data);
-        request.onsuccess = () => resolve();
-        request.onerror = () => reject(request.error);
-    });
+// ログイン
+export async function login(email, password) {
+  return await signInWithEmailAndPassword(auth, email, password);
 }
 
-function getPlayerData() {
-    const transaction = db.transaction([storeName], 'readonly');
-    const store = transaction.objectStore(storeName);
-    return new Promise((resolve, reject) => {
-        const request = store.get('player-1');
-        request.onsuccess = () => resolve(request.result);
-        request.onerror = () => reject(request.error);
-    });
+// プレイヤーデータ取得
+export async function getPlayerData(uid) {
+  const ref = doc(db, "users", uid);
+  const snap = await getDoc(ref);
+  return snap.exists() ? snap.data() : null;
 }
 
-window.db = { openDB, savePlayerData, getPlayerData };
+// プレイヤーデータ保存
+export async function savePlayerData(uid, data) {
+  const ref = doc(db, "users", uid);
+  await setDoc(ref, data);
+}
