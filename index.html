@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あつまってボス戦しようぜRPG-あボR-</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="game-container">
+        <div id="start-screen" class="screen active">
+            <h1>あつまってボス戦しようぜRPG</h1>
+            <button id="solo-play-btn">ソロプレイ</button>
+            <button id="multi-play-btn">マルチプレイ</button>
+        </div>
+
+        <div id="solo-screen" class="screen">
+            <h2>探索と育成</h2>
+            <div id="player-status">
+                </div>
+            <button id="start-explore-btn">自動探索へ行く (30秒)</button>
+            <button id="start-manual-btn">手動探索へ行く</button>
+            <button id="back-to-menu-solo">メニューに戻る</button>
+        </div>
+
+        <div id="multi-screen" class="screen">
+            <h2>P2Pレイドボス戦</h2>
+            <div id="multi-options">
+                <button id="host-btn">パーティーを募集する</button>
+                <button id="join-btn">パーティーに参加する</button>
+            </div>
+            <div id="host-info" style="display: none;">
+                <p>ホストとして待機中...</p>
+                <p>QRコードとセッションIDを表示</p>
+                <div id="qrcode"></div>
+                <p>セッションID: <span id="session-id"></span></p>
+            </div>
+            <button id="back-to-menu-multi">メニューに戻る</button>
+        </div>
+        
+        <div id="battle-screen" class="screen">
+            <h2>戦闘開始！</h2>
+            <div id="battle-log"></div>
+            <div id="enemy-status"></div>
+            <div id="player-action-menu">
+                <button class="action-btn">攻撃</button>
+                <button class="action-btn">スキル</button>
+                <button class="action-btn">防御</button>
+                <button class="action-btn">アイテム</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <script src="db.js"></script>
+    <script src="solo.js"></script>
+    <script src="multi.js"></script>
+    <script src="game.js"></script>
+
+</body>
+</html>
